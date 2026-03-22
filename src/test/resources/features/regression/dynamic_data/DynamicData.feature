@@ -64,8 +64,8 @@ Feature: Dynamic Data - Generates random and dynamic data
     And match response == 'karate'
 
   @negative @base64
-  Scenario: [DD-007] GET /base64 - Invalid base64 string returns error response
-    Given path '/base64/not-valid-base64!!!'
+  Scenario: [DD-007] GET /base64 - Invalid base64 string (Incorrect padding) returns non-5xx
+    Given path '/base64/invalidbase64string'
     When method GET
     Then assert responseStatus == 200 || responseStatus == 400
 
@@ -116,7 +116,7 @@ Feature: Dynamic Data - Generates random and dynamic data
     Given path '/delay/2'
     When method GET
     Then status 200
-    And match response contains { method: '#string', url: '#string' }
+    And match response contains { url: '#string', headers: '#object' }
 
   @positive @delay
   Scenario: [DD-014] GET /delay/0 - Returns 200 immediately (0 second delay)

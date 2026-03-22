@@ -80,7 +80,7 @@ Feature: Request Inspection - Inspect the request data
     And match response.headers == '#object'
 
   @positive @headers
-  Scenario Outline: [RI-009] GET /headers - Various standard headers are correctly reflected
+  Scenario Outline: [RI-009] GET /headers - Various custom X- headers are correctly reflected
     Given path '/headers'
     And header <headerName> = '<headerValue>'
     When method GET
@@ -88,10 +88,10 @@ Feature: Request Inspection - Inspect the request data
     And match response.headers['<headerName>'] == '<headerValue>'
 
     Examples:
-      | headerName        | headerValue          |
-      | X-Forwarded-For   | 192.168.1.1          |
-      | X-Request-Id      | req-abc-123          |
-      | X-Correlation-Id  | corr-xyz-456         |
+      | headerName             | headerValue          |
+      | X-Karate-Custom-One    | alpha-value-001      |
+      | X-Karate-Custom-Two    | beta-value-002       |
+      | X-Karate-Environment   | test-regression      |
 
   # ═══════════════════════════════════════════════════════════
   # GET /ip - Returns the requester's IP address

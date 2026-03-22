@@ -177,7 +177,8 @@ Feature: Authentication - Testing all auth methods
     Given path '/digest-auth/auth/digestuser/digestpass'
     When method GET
     Then status 401
-    And match responseHeaders['Www-Authenticate'] != null
+    * def wwwAuth = responseHeaders['Www-Authenticate'] || responseHeaders['www-authenticate'] || responseHeaders['WWW-Authenticate']
+    And assert wwwAuth != null
 
   @negative @digest-auth
   Scenario: [AUTH-020] Digest Auth endpoint (MD5 qop=auth) - No credentials returns 401

@@ -195,14 +195,14 @@ Feature: HTTP Methods - Testing all HTTP verbs
     And match response.json == { status: 'updated' }
 
   @positive @put
-  Scenario: [HTTP-017] PUT /put - PUT with custom headers
+  Scenario: [HTTP-017] PUT /put - PUT with custom headers (using non-proxy-stripped header)
     Given path '/put'
     And header Content-Type = 'application/json'
-    And header X-Request-Id = 'put-test-123'
+    And header X-Karate-Test-Id = 'put-test-123'
     And request { updated: true }
     When method PUT
     Then status 200
-    And match response.headers['X-Request-Id'] == 'put-test-123'
+    And match response.headers['X-Karate-Test-Id'] == 'put-test-123'
 
   # ═══════════════════════════════════════════════════════════
   # PATCH Tests
